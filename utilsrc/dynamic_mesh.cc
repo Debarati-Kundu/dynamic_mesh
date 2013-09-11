@@ -5,6 +5,9 @@ Princeton University
 Benedict Brown
 Katholieke Universiteit Leuven
 
+Debarati Kundu
+University of Texas at Austin
+
 dynamic_mesh.cc
 */
 
@@ -31,12 +34,15 @@ int main(int argc, char *argv[])
 	{
 		sprintf (buffer, "%s0%03d.off", argv[1], i+1);
 		MeshArr[i] = TriMesh::read(buffer);
+
+		// Code to check the mesh is deformable, the edge length is varying between the frames	
+		MeshArr[i]->need_faces();
+		float dist_face1 = dist(MeshArr[i]->vertices[MeshArr[i]->faces[0][1]], MeshArr[i]->vertices[MeshArr[i]->faces[0][2]]);
+		float dist_face2 = dist(MeshArr[i]->vertices[MeshArr[i]->faces[0][2]], MeshArr[i]->vertices[MeshArr[i]->faces[0][0]]);
+		float dist_face3 = dist(MeshArr[i]->vertices[MeshArr[i]->faces[0][0]], MeshArr[i]->vertices[MeshArr[i]->faces[0][1]]);
+		// printf("%d %f %f %f\n", i, dist_face1, dist_face2, dist_face3);
 	}
 	
-//	i = 50;
-//	MeshArr[i]->need_faces();
-//	printf("done %d\n", MeshArr[i]->faces.size());
-//	TriMesh *mesh = TriMesh::read(argv[1]);
 	return 0;
 }
 
