@@ -1,8 +1,11 @@
+include ../../../lapack-3.4.2/make.inc
+
 # DEBUG = y
+LOADER = gfortran
 MAKERULESDIR = ..
 DESTDIR = ../bin.$(UNAME)
-INCLUDES = -I../include 
-# -I /home/debarati/softwares/arpack++/include
+INCLUDES = -I../include -I../../../lapack-3.4.2/lapacke/include/ 
+#-I /home/debarati/softwares/arpack++/include
 LIBDIR = -L../lib.$(UNAME) -L /usr/lib/
 
 include $(MAKERULESDIR)/Makerules
@@ -35,10 +38,16 @@ $(OTHERPROGS) : $(DESTDIR)/%$(EXE) : $(OBJDIR)/%.o
 
 $(PROGS) : ../lib.$(UNAME)/libtrimesh.a
 
+svd :   basis_SVD.o ../../../lapack-3.4.2/lib/liblapack.a ../../../lapack-3.4.2/liblapacke.a
+	$(LOADER) basis_SVD.o \
+	../../../lapack-3.4.2/liblapacke.a ../../../lapack-3.4.2/lib/liblapack.a ../../../lapack-3.4.2/lib/libblas.a -o $@
+
 clean :
 	-rm -f $(OFILES) $(OBJDIR)/Makedepend $(OBJDIR)/*.d
 	-rm -rf $(OBJDIR)/ii_files
 	-rm -rf $(OBJDIR)/
+	-rm *.o
+	-rm svd
 
 spotless : clean
 	-rm -f $(PROGS)
