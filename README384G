@@ -1,0 +1,42 @@
+Name: Debarati Kundu
+UTCS ID: debarati
+UTEID: dk8936
+Email: debarati@utexas.edu
+Computer Graphics
+CS384G, Fall 2012 Final Project
+Perceptual Metrics for 3D Meshes
+
+The codes written for this project has been derived from trimesh2, a C++ library and set of utilities for input, output, and basic manipulation of 3D triangle meshes. The curvature for the triangle meshes have been computed in this library by the algorithm described in the paper by Szymon Rusinkiewicz. "Estimating Curvatures and Their Derivatives on Triangle Meshes,"Proc. 3DPVT, 2004.
+
+The functions which are implemented for this project are:
+need_saliency() and need_smoothness() in ./libsrc/saliency.cc
+calculate_gl() and calculate_hausdorff() in utilsrc/mesh_perceptual.cc
+mesh_perceptual.cc is the main utility file for viewing the perceptual metrics on the triangle meshes.
+
+The code computes the mesh saliency of the input triangle mesh at different scales based on the algorithm developed by Jacobs et al. in the paper "Mesh Saliency," ACM Trans. Graph., vol.24, no.3, pp. 659-666, Jul. 2005.
+
+need_smoothness() computes a measure of per-vertex smoothness based on the Laplacian operator. It is briefly described in the paper Guillaume Lavoué and Massimiliano Corsini, A comparison of perceptually-based metrics for objective evaluation of geometry processing, IEEE Transactions on Multimedia, Vol. 12, No. 7, pp. 636-649, 2010.
+Brief descriptions of Hausdorff distance and GL1 metric can also be found in the abovementioned paper.  
+
+Instructions for running the code (only tested on 64 bit Intel(R) Xeon(R) CPU, running Ubuntu 11.10):
+
+tar -xvf trimesh2.tar.gz
+cd trimesh2 
+make clean
+rm bin.Linux64/mesh_*
+make
+cd bin.Linux64
+./mesh_perceptual infile1 infile2 options
+
+infile1 and infile2 are the files describing the triangle meshes.
+The options are:
+1: View saliency of first mesh
+2: View saliency of second mesh
+3: View smoothness of first mesh
+4: View smoothness of second mesh
+5: Calculate Hausdorff Distance between the two meshes
+6: Calculate GL1 between the two meshes
+
+Some sample .obj files (and their noisy versions) have been provided in the directory ./bin.Linux64 for testing.
+
+The executables produced are found to have some issues if run from external media like the flash drive. 
