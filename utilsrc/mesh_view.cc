@@ -658,6 +658,9 @@ int main(int argc, char *argv[])
 	glutMouseFunc(mousebuttonfunc);
 	glutMotionFunc(mousemotionfunc);
 	glutKeyboardFunc(keyboardfunc);
+
+	dump_image;
+
 	glutIdleFunc(idle);
 
 	resetview();

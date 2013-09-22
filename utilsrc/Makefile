@@ -13,8 +13,9 @@ include $(MAKERULESDIR)/Makerules
 
 #VIEWSOURCES =	mesh_perceptual.cc \
 
-VIEWSOURCES =   dynamic_mesh.cc \
-#OTHERSOURCES =	mesh_info.cc \
+VIEWSOURCES =  mesh_view.cc \
+#dynamic_mesh.cc \
+#OTHERSOURCES =	mesh_view.cc \
 
 VIEWOFILES = $(addprefix $(OBJDIR)/,$(VIEWSOURCES:.cc=.o))
 OTHEROFILES = $(addprefix $(OBJDIR)/,$(OTHERSOURCES:.cc=.o))
@@ -40,6 +41,10 @@ $(PROGS) : ../lib.$(UNAME)/libtrimesh.a
 
 svd :   basis_SVD.o ../../../lapack-3.4.2/lib/liblapack.a ../../../lapack-3.4.2/liblapacke.a
 	$(LOADER) basis_SVD.o \
+	../../../lapack-3.4.2/liblapacke.a ../../../lapack-3.4.2/lib/liblapack.a ../../../lapack-3.4.2/lib/libblas.a -o $@
+
+corsvd :  cor_SVD.o ../../../lapack-3.4.2/lib/liblapack.a ../../../lapack-3.4.2/liblapacke.a
+	$(LOADER) cor_SVD.o \
 	../../../lapack-3.4.2/liblapacke.a ../../../lapack-3.4.2/lib/liblapack.a ../../../lapack-3.4.2/lib/libblas.a -o $@
 
 clean :
